@@ -12,13 +12,21 @@ $PluginInfo['UserAgent'] = array(
 
 class UserAgentPlugin extends Gdn_Plugin {
 
-   public function DiscussionController_AfterCommentBody_Handler($Sender, $Args) {
-      $Attributes = unserialize(GetValue('Attributes', GetValue('Comment', $Args)));
+   public $Logos = array(
+     'Firefox' => 'firefox.png',
+     'Chrome' => 'chrome.png',
+     'Internet Explorer' => 'ie.png',
+     'Opera' => 'opera.png',
+     'Safari' => 'safari.png'
+   );
+
+   public function DiscussionController_InsideCommentMeta_Handler($Sender, $Args) {
+      $Attributes = GetValue('Attributes', GetValue('Comment', $Args));
       $this->AttachInfo($Sender, $Attributes);
    }
    
    public function DiscussionController_AfterDiscussionBody_Handler($Sender, $Args) {
-      $Attributes = unserialize(GetValue('Attributes', GetValue('Discussion', $Args)));
+      $Attributes = GetValue('Attributes', GetValue('Discussion', $Args));
       $this->AttachInfo($Sender, $Attributes);
    }
    
@@ -38,13 +46,15 @@ class UserAgentPlugin extends Gdn_Plugin {
     * Collect user agent data and save in Attributes array.
     */
    protected function SetAttributes($Sender, &$Args) {
-      if (!isset($Args['FormPostValues']['Attributes']))
+      if (!isset($Args['FormPostValues']['Attributes'])) {
          $Args['FormPostValues']['Attributes'] = array();
+      } else {
+         $Args['FormPostValues']['Attributes'] = unserialize($Args['FormPostValues']['Attributes']);
+      }
       
       // Add user agent data to Attributes
-      $Data = @get_browser(GetValue('HTTP_USER_AGENT', $_SERVER)); // requires browsecap.ini or throws error
-      $Args['FormPostValues']['Attributes']['Platform'] = GetValue('platform', $Data);
-      $Args['FormPostValues']['Attributes']['Browser'] = trim(GetValue('browser', $Data) . ' ' . GetValue('version', $Data));
+      $Args['FormPostValues']['Attributes']['UserAgent'] = GetValue('HTTP_USER_AGENT', $_SERVER);
+
       $Args['FormPostValues']['Attributes'] = serialize($Args['FormPostValues']['Attributes']);
    }
    
@@ -54,15 +64,25 @@ class UserAgentPlugin extends Gdn_Plugin {
    protected function AttachInfo($Sender, $Attributes) {
       if (!CheckPermission('Garden.Moderation.Manage'))
          return;
-      
-      $Info = '';
-      if ($Value = GetValue('Browser', $Attributes))
-         $Info .= Wrap('Browser', 'dt').' '.Wrap($Value, 'dd');
-      if ($Value = GetValue('Platform', $Attributes))
-         $Info .= Wrap('OS', 'dt').' '.Wrap($Value, 'dd');
-      
-      echo Wrap($Info, 'dl', array('class' => "About UserAgentInfo"));
+
+      $Info = null;
+      $UserAgent = GetValue('UserAgent', unserialize($Attributes));
+      if ($UserAgent) {
+        $Data = @get_browser($UserAgent); // requires browsecap.ini
+        if ($Data) {
+          $Logo = $this->Logos[$Data->browser];
+          if ($Logo) {
+            $Info = Img($this->GetResource('logos/'.$Logo, FALSE, FALSE), array('alt' => htmlspecialchars($Data->browser)));
+          } else {
+            $Info = htmlspecialchars($Data->browser);
+          }
+        }
+        If (!$Info) {
+          $Info = '?';
+        }
+        
+        echo Wrap($Info, 'span', array('class' => 'MItem UserAgent', 'title' => htmlspecialchars($UserAgent)));
+      }
    }
 
-   public function Setup() { }
 }
