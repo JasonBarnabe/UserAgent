@@ -1,13 +1,13 @@
 <?php if (!defined('APPLICATION')) exit();
 
 $PluginInfo['UserAgent'] = array(
-   'Name' => 'User Agent',
-   'Description' => "Record user platform data (browser, operating system) and show under comments. Requires browsecap.ini is setup in your PHP install.",
-   'Version' => '1.0',
-   'MobileFriendly' => TRUE,
-   'Author' => "Lincoln Russell",
-   'AuthorEmail' => 'lincoln@vanillaforums.com',
-   'AuthorUrl' => 'http://lincolnwebs.com'
+  'Name' => 'User Agent',
+  'Description' => "Record user agent and display it and browser icon above posts.",
+  'Version' => '2.0',
+  'MobileFriendly' => TRUE,
+  'Author' => "Jason Barnabe",
+  'AuthorEmail' => 'jason.barnabe@gmail.com',
+  'AuthorUrl' => 'https://github.com/JasonBarnabe'
 );
 
 class UserAgentPlugin extends Gdn_Plugin {
@@ -66,9 +66,6 @@ class UserAgentPlugin extends Gdn_Plugin {
    * Output user agent information.
    */
   protected function AttachInfo($Sender, $Attributes) {
-    if (!CheckPermission('Garden.Moderation.Manage'))
-      return;
-
     $Info = null;
     $UserAgent = GetValue('UserAgent', unserialize($Attributes));
     if ($UserAgent) {
@@ -82,7 +79,7 @@ class UserAgentPlugin extends Gdn_Plugin {
         }
       }
       If (!$Info) {
-        $Info = '?';
+        $Info = '[?]';
       }
 
       echo Wrap($Info, 'span', array('class' => 'MItem UserAgent', 'title' => htmlspecialchars($UserAgent)));
