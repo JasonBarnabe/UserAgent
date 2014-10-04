@@ -29,7 +29,7 @@ class UserAgentPlugin extends Gdn_Plugin {
     $this->AttachInfo($Sender, $Attributes);
   }
 
-  public function DiscussionController_AfterDiscussionBody_Handler($Sender, $Args) {
+  public function DiscussionController_AfterDiscussionMeta_Handler($Sender, $Args) {
     $Attributes = GetValue('Attributes', GetValue('Discussion', $Args));
     $this->AttachInfo($Sender, $Attributes);
   }
@@ -67,7 +67,11 @@ class UserAgentPlugin extends Gdn_Plugin {
    */
   protected function AttachInfo($Sender, $Attributes) {
     $Info = null;
-    $UserAgent = GetValue('UserAgent', unserialize($Attributes));
+    # Vanilla 2.1 - comment model passes in serialized string - fixed in https://github.com/vanilla/vanilla/commit/7e86195f0c5ddaf42a5a281341176e5ab2de9de0
+    if (is_string($Attributes)) {
+      $Attributes = unserialize($Attributes);
+    }
+    $UserAgent = GetValue('UserAgent', $Attributes);
     if ($UserAgent) {
       $Data = @get_browser($UserAgent); // requires browsecap.ini
       if ($Data) {
