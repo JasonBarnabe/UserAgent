@@ -15,7 +15,7 @@ class UserAgentPlugin extends Gdn_Plugin {
   public $Logos = array(
     'Firefox' => 'firefox.png',
     'Chrome' => 'chrome.png',
-    'Internet Explorer' => 'ie.png',
+    'IE' => 'ie.png',
     'Opera' => 'opera.png',
     'Safari' => 'safari.png'
   );
