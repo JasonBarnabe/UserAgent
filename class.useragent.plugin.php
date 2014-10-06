@@ -24,16 +24,23 @@ class UserAgentPlugin extends Gdn_Plugin {
     $Sender->AddCssFile($this->GetResource('useragent.css', FALSE, FALSE));
   }
 
+  // Comments display
   public function DiscussionController_CommentInfo_Handler($Sender, $Args) {
     $Attributes = GetValue('Attributes', GetValue('Comment', $Args));
     $this->AttachInfo($Sender, $Attributes);
   }
 
+  // Comments, after saving an edit
+  public function PostController_CommentInfo_Handler($Sender, $Args) {
+    $this->DiscussionController_CommentInfo_Handler($Sender, $Args);
+  }
+
+  // Discussions display
   public function DiscussionController_DiscussionInfo_Handler($Sender, $Args) {
     $Attributes = GetValue('Attributes', GetValue('Discussion', $Args));
     $this->AttachInfo($Sender, $Attributes);
   }
-   
+
   public function CommentModel_BeforeSaveComment_Handler($Sender, &$Args) {
     if ($Args['FormPostValues']['InsertUserID'] != Gdn::Session()->UserID)
       return;
