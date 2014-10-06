@@ -24,12 +24,12 @@ class UserAgentPlugin extends Gdn_Plugin {
     $Sender->AddCssFile($this->GetResource('useragent.css', FALSE, FALSE));
   }
 
-  public function DiscussionController_InsideCommentMeta_Handler($Sender, $Args) {
+  public function DiscussionController_CommentInfo_Handler($Sender, $Args) {
     $Attributes = GetValue('Attributes', GetValue('Comment', $Args));
     $this->AttachInfo($Sender, $Attributes);
   }
 
-  public function DiscussionController_AfterDiscussionMeta_Handler($Sender, $Args) {
+  public function DiscussionController_DiscussionInfo_Handler($Sender, $Args) {
     $Attributes = GetValue('Attributes', GetValue('Discussion', $Args));
     $this->AttachInfo($Sender, $Attributes);
   }
