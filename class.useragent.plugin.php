@@ -13,10 +13,14 @@ $PluginInfo['UserAgent'] = array(
 class UserAgentPlugin extends Gdn_Plugin {
 
   public $Logos = array(
-    'Firefox' => 'firefox.png',
     'Chrome' => 'chrome.png',
+    'Chromium' => 'chromium.png',
+    'Firefox' => 'firefox.png',
     'IE' => 'ie.png',
+    'Maxthon' => 'maxthon.png',
+    'Mercury' => 'mercury.png',
     'Opera' => 'opera.png',
+    'PaleMoon' => 'palemoon.png',
     'Safari' => 'safari.png'
   );
 
