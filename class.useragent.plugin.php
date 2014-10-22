@@ -7,7 +7,7 @@ $PluginInfo['UserAgent'] = array(
   'MobileFriendly' => TRUE,
   'Author' => "Jason Barnabe",
   'AuthorEmail' => 'jason.barnabe@gmail.com',
-  'AuthorUrl' => 'https://github.com/JasonBarnabe'
+  'AuthorUrl' => 'https://github.com/JasonBarnabe/UserAgent'
 );
 
 class UserAgentPlugin extends Gdn_Plugin {
