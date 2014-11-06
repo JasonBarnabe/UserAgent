@@ -3,7 +3,7 @@
 $PluginInfo['UserAgent'] = array(
   'Name' => 'User Agent',
   'Description' => "Record user agent and display it and browser icon above posts.",
-  'Version' => '2.0',
+  'Version' => '2.1',
   'MobileFriendly' => TRUE,
   'Author' => "Jason Barnabe",
   'AuthorEmail' => 'jason.barnabe@gmail.com',
@@ -68,7 +68,12 @@ class UserAgentPlugin extends Gdn_Plugin {
     }
 
     // Add user agent data to Attributes
+    $UserAgent = GetValue('HTTP_USER_AGENT', $_SERVER);
     $Args['FormPostValues']['Attributes']['UserAgent'] = GetValue('HTTP_USER_AGENT', $_SERVER);
+    $BrowserData = @get_browser($UserAgent); // requires browsecap.ini
+    if ($BrowserData) {
+      $Args['FormPostValues']['Attributes']['Browser'] = $BrowserData->browser;
+    }
 
     $Args['FormPostValues']['Attributes'] = serialize($Args['FormPostValues']['Attributes']);
   }
@@ -83,14 +88,14 @@ class UserAgentPlugin extends Gdn_Plugin {
       $Attributes = unserialize($Attributes);
     }
     $UserAgent = GetValue('UserAgent', $Attributes);
+    $Browser = GetValue('Browser', $Attributes);
     if ($UserAgent) {
-      $Data = @get_browser($UserAgent); // requires browsecap.ini
-      if ($Data) {
-        $Logo = $this->Logos[$Data->browser];
+      if ($Browser) {
+        $Logo = $this->Logos[$Browser];
         if ($Logo) {
-          $Info = Img($this->GetResource('logos/'.$Logo, FALSE, FALSE), array('alt' => htmlspecialchars($Data->browser)));
+          $Info = Img($this->GetResource('logos/'.$Logo, FALSE, FALSE), array('alt' => htmlspecialchars($Browser)));
         } else {
-          $Info = htmlspecialchars($Data->browser);
+          $Info = htmlspecialchars($Browser);
         }
       }
       If (!$Info) {
