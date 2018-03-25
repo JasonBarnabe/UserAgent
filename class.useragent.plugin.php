@@ -45,13 +45,13 @@ class UserAgentPlugin extends Gdn_Plugin {
     $this->AttachInfo($Sender, $Attributes);
   }
 
-  public function CommentModel_BeforeSaveComment_Handler($Sender, &$Args) {
+  public function CommentModel_BeforeSaveComment_Handler($Sender, $Args) {
     if ($Args['FormPostValues']['InsertUserID'] != Gdn::Session()->UserID)
       return;
     $this->SetAttributes($Sender, $Args);
   }
 
-  public function DiscussionModel_BeforeSaveDiscussion_Handler($Sender, &$Args) {
+  public function DiscussionModel_BeforeSaveDiscussion_Handler($Sender, $Args) {
     if ($Args['FormPostValues']['InsertUserID'] != Gdn::Session()->UserID)
       return;
     $this->SetAttributes($Sender, $Args);
@@ -60,7 +60,7 @@ class UserAgentPlugin extends Gdn_Plugin {
   /**
    * Collect user agent data and save in Attributes array.
    */
-  protected function SetAttributes($Sender, &$Args) {
+  protected function SetAttributes($Sender, $Args) {
     if (!isset($Args['FormPostValues']['Attributes'])) {
       $Args['FormPostValues']['Attributes'] = array();
     } else {
