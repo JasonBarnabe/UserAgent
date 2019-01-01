@@ -1,17 +1,6 @@
 <?php if (!defined('APPLICATION')) exit();
 
-$PluginInfo['UserAgent'] = array(
-  'Name' => 'User Agent',
-  'Description' => "Record user agent and display it and browser icon above posts.",
-  'Version' => '2.1',
-  'MobileFriendly' => TRUE,
-  'Author' => "Jason Barnabe",
-  'AuthorEmail' => 'jason.barnabe@gmail.com',
-  'AuthorUrl' => 'https://github.com/JasonBarnabe/UserAgent'
-);
-
 class UserAgentPlugin extends Gdn_Plugin {
-
   public $Logos = array(
     'Chrome' => 'chrome.png',
     'Chromium' => 'chromium.png',
@@ -25,12 +14,13 @@ class UserAgentPlugin extends Gdn_Plugin {
   );
 
   public function Base_Render_Before($Sender) {
-    $Sender->AddCssFile($this->GetResource('useragent.css', FALSE, FALSE));
+    $Sender->addCssFile('useragent.css', 'plugins/UserAgent');
   }
 
   // Comments display
   public function DiscussionController_CommentInfo_Handler($Sender, $Args) {
-    $Attributes = GetValue('Attributes', GetValue('Comment', $Args));
+    $Comment = GetValue('Comment', $Args);
+    $Attributes = GetValue('Attributes', $Comment);
     $this->AttachInfo($Sender, $Attributes);
   }
 
@@ -41,7 +31,8 @@ class UserAgentPlugin extends Gdn_Plugin {
 
   // Discussions display
   public function DiscussionController_DiscussionInfo_Handler($Sender, $Args) {
-    $Attributes = GetValue('Attributes', GetValue('Discussion', $Args));
+    $Discussion = GetValue('Discussion', $Args);
+    $Attributes = GetValue('Attributes', $Discussion);
     $this->AttachInfo($Sender, $Attributes);
   }
 
@@ -83,10 +74,6 @@ class UserAgentPlugin extends Gdn_Plugin {
    */
   protected function AttachInfo($Sender, $Attributes) {
     $Info = null;
-    # Vanilla 2.1 - comment model passes in serialized string - fixed in https://github.com/vanilla/vanilla/commit/7e86195f0c5ddaf42a5a281341176e5ab2de9de0
-    if (is_string($Attributes)) {
-      $Attributes = unserialize($Attributes);
-    }
     $UserAgent = GetValue('UserAgent', $Attributes);
     $Browser = GetValue('Browser', $Attributes);
     if ($UserAgent) {

@@ -1,0 +1,18 @@
+{
+    "type": "addon",
+    "key": "UserAgent",
+    "name": "User Agent",
+    "description": "Record user agent and display it and browser icon above posts.",
+    "version": "2.1",
+    "mobileFriendly": true,
+    "authors": [
+        {
+            "name": "Jason Barnabe",
+            "email": "jason.barnabe@gmail.com",
+            "homepage": "https://github.com/JasonBarnabe/UserAgent"
+        }
+    ],
+    "require": {
+        "vanilla": ">=2.5"
+    }
+}
