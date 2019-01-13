@@ -3,6 +3,7 @@
     "key": "UserAgent",
     "name": "User Agent",
     "description": "Record user agent and display it and browser icon above posts.",
+    "license": "GNU GPL2",
     "version": "2.2",
     "mobileFriendly": true,
     "authors": [
