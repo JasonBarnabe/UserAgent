@@ -3,7 +3,7 @@
     "key": "UserAgent",
     "name": "User Agent",
     "description": "Record user agent and display it and browser icon above posts.",
-    "version": "2.1",
+    "version": "2.2",
     "mobileFriendly": true,
     "authors": [
         {
