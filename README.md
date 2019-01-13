@@ -1,7 +1,7 @@
 User Agent
 =========
 
-User Agent is a Vanilla Forums plug-in. User Agent shows what browser people are posting with. For common browsers, it will show that browser's icon; for uncommon, it will show that browser's name. Hover the name/logo for a tooltip that indicates full User Agent string. Live example.
+User Agent is a Vanilla Forums plug-in. User Agent shows what browser people are posting with. For common browsers, it will show that browser's icon; for uncommon, it will show that browser's name. Hover the name/logo for a tooltip that indicates full User Agent string.
 
 User Agent will only record data while it's enabled, so anything posted before you install it will not show the browser data.
 
@@ -9,7 +9,7 @@ User Agent will only record data while it's enabled, so anything posted before y
 Requirements
 =========
 
-* Vanilla 2.1 or higher
+* Vanilla 2.5 or higher
 * [browscap](http://browscap.org/)
 
 
@@ -28,11 +28,10 @@ Donations
 If you like User Agent, consider making a donation. Suggested amount is $5.
 
 * [Donate by PayPal or credit card](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=jason.barnabe@gmail.com&item_name=Contribution+for+User+Agent)
-* Donate BitCoin to 1MQktgSoygLG8HJsCVBa3hmQ3WjkC5ASqp
 
 Credits
 =========
 
-UserAgent is a revival of [an official Vanilla addon that stopped being supported](https://github.com/vanilla/addons/tree/master/archive/UserAgent).
+UserAgent is a revival of an official Vanilla addon that stopped being supported.
 
 Browser icons courtesy of [alrra/browser-logos](https://github.com/alrra/browser-logos).
