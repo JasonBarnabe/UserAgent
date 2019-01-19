@@ -6,6 +6,7 @@
     "license": "GNU GPL2",
     "version": "2.2",
     "mobileFriendly": true,
+    "documentationUrl" : "",
     "authors": [
         {
             "name": "Jason Barnabe",
