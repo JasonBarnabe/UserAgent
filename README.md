@@ -1,3 +1,5 @@
+**This plugin is no longer maintained. It was last confirmed to work in Vanilla 2.5.**
+
 User Agent
 =========
 
